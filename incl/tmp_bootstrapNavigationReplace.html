@@ -1,0 +1,85 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="||@homeActive@||"><a href="home.php">ホーム</a></li>
+                <li class="||@masterActive@||">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">マスター<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="masterBU1.php">部門マスター</a></li>
+                        <li><a href="masterTR1.php">会社マスター</a></li>
+                        <li><a href="masterJY2.php">従業員マスター登録</a></li>
+                        <li><a href="calendar.php">カレンダー登録</a></li>
+                    </ul>
+                </li>
+                <li class="||@orderActive@||">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">売上・請求<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="uriage1.php">売上計画</a></li>
+                        <li><a href="uriage2.php">売上実績</a></li>
+                        <li><a href="shime1.php">締め業務</a></li>
+                        <li><a href="seikyu1.php">請求業務</a></li>
+                    </ul>
+                    </li>
+                <li class="||@keihiActive@||">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">経費<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="||@petty_cash_link@||" target="_blank">小口現金</a></li>
+                        <li><a href="keihi1.php">経費入力</a></li>
+                    </ul>
+                    </li>
+                <li class="||@syushiActive@||">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">収支<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="syushiT1.php">収支エクセル取込</a></li>
+                            <li><a href="syushiKN1.php">収支計画入力</a></li>
+                            <li><a href="syushiN1.php">収支入力[請負]</a></li>
+                            <li><a href="syushiN2.php">収支入力[派遣]</a></li>
+                            <li><a href="syushiH1.php">日次収支報告</a></li>
+                            <li><a href="syushiH2.php">月次収支報告</a></li>
+                        </ul>
+                    </li>
+                    <li class="||@kintaiActive@||">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">勤怠<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="kintaiN1.php">勤怠入力（月別）</a></li>
+                            <li><a href="kintaiN2.php">勤怠入力（日別）</a></li>
+                            <li><a href="kintaiDK1.php">勤怠打刻（時給）</a></li>
+                            <li><a href="kintaiSS1.php">勤怠修正・確定（時給）</a></li>
+                            <li><a href="kintaiSY1.php">勤怠入力（月給）</a></li>
+                        </ul>
+                    </li>
+                    <li class="||@shinseiActive@||">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">申請・承認<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="rin01.php">稟議起案</a></li>
+                            <li><a href="rin02.php ">稟議承認</a></li>
+                            <li><a href=".php ">勤怠申請</a></li>
+                            <li><a href=".php ">勤怠承認</a></li>
+                        </ul>
+                    </li>
+                    <li class="||@manualActive@|| "><a href="helpMOV1.php ">マニュアル</a></li>
+                    <li><a href="login.php ">ログアウト</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="||@accountActive@||">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">||@name@||<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="pass.php">アカウント設定</a></li>
+                        <li><a href="pass.php">残業時間確認</a></li>
+                        <li><a href="#">||@sess@||</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

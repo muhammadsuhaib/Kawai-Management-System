@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<!-- delimiter del -->
+	<title>従業員マスター保守</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="../../favicon.ico">
+	<link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+	<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="../../dist/js/bootstrap.min.js"></script>
+	<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+	<script src="fixed_midashi.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+	<script src="https://unpkg.com/flatpickr"></script>
+	<script src="moment-with-locales.js"></script>
+	<script src="bootstrap-material-datetimepicker.js"></script>
+	<link href="bootstrap-material-datetimepicker.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/3.2.2/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/3.2.2/js/tabulator.min.js"></script>
+    <link href="dist/css/bootstrap/tabulator_bootstrap.min.css" rel="stylesheet">
+    
+	<link href="main.css" rel="stylesheet">
+    <script src="main.js"></script>
+	<!-- delimiter del -->
+
+	<!-- delimiter -->
+	<!-- @header@ -->
+	<!-- delimiter -->
+
+    <script type="text/javascript">
+        <!--
+            $(document).ready(function(){
+            $("#tabu1").tabulator({
+                height:450,
+                fitColumns:true,
+                tooltipsHeader:true,
+                columns:[
+                    {width:80, title:"No", field:"btn", align:"center", frozen:true,formatter:'html'},
+                    {width:150, title:"姓名", align:"left", field:"姓名", frozen:true},
+                    {width:80, title:"性別", align:"center", field:"性別"},
+                    {width:80, title:"年齢", align:"right", field:"年齢"},
+                    {width:100, title:"生年月日", align:"right", field:"生年月日"},
+					{width:80, title:"拠点", align:"left", field:"拠点"},
+					{width:80, title:"応募状態", align:"left", field:"応募者＿状態"},
+					{width:120, title:"応募備考", align:"left", field:"応募者＿備考"},
+					{width:180, title:"応募共有情報", align:"left", field:"応募者共有情報"},
+					{width:80, title:"個人携帯", align:"left", field:"携帯電話番号"},
+					{width:80, title:"自宅電話", align:"left", field:"自宅電話番号"},
+					{width:80, title:"個人メール", align:"left", field:"個人メール"},
+					{width:80, title:"郵便番号", align:"left", field:"郵便番号"},
+					{width:200, title:"住所", align:"left", field:"住所"},
+					
+
+					{width:150, title:"作成日時", field:"sakuseibi", align:"right"},
+                    {width:150, title:"作成者", field:"sakuseisya", align:"right"},
+                    {width:150, title:"更新日時", field:"koushinbi", align:"right"},
+                    {width:150, title:"更新者", field:"koushinsya", align:"right"},
+                    {width:40, title:"No", field:"従業員コード", align:"center", visible:false},
+                    {width:1, title:"", field:"ダミー"}
+                ],
+                tooltips:function(cell){
+                    return cell.getValue();
+                },
+				rowFormatter:function(row){
+				},
+			});    
+            }); 
+        // -->
+    </script>
+</head>
+
+<body>
+	<!-- delimiter -->
+	<!-- @standard@ -->
+	<!-- delimiter -->
+
+	<!-- delimiter del -->
+	<div id="modalParent1">
+
+		<!-- delimiter modal_c -->
+		<div class="modal" id="modal_c" tabindex="-1">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+						<h4 class="modal-title">新規従業員登録</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<ul class="nav nav-tabs">
+								<li class="nav-item active">
+									<a href="#tab1c" class="nav-link navbar-default active" data-toggle="tab">基本</a></li>
+								<li class="nav-item">
+									<a href="#tab2c" class="nav-link navbar-default" data-toggle="tab">給与・請求</a>
+								</li>
+							</ul>
+							<div class="tab-content" style="padding:10px;">
+								<div id="tab1c" class="tab-pane active">
+									<!--Tab1の内容-->
+
+									<div class="form-group">
+										<div class="col-sm-3" style="background-color:rgba(100, 149, 237, 0.2); text-align: center; font-weight:bold;">応募者関連情報
+										</div>
+									</div>
+
+                                    
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="saiban_lab">予定番号</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="saiban" value="||@saiban@||" tabindex="-1" readonly>
+										</div>
+                                        <label class="col-sm-2 control-label" id="拠点lab">受付拠点</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="拠点">
+											||@拠点@||	
+                                            </select>
+										</div>
+									</div>
+									<div class="form-group">
+                                        <label class="col-sm-3 control-label" id="応募者＿状態lab">ステータス(参考)</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="応募者＿状態">
+												||@応募者状態@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="応募者＿備考lab">備考</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="応募者＿備考">
+										</div>
+                                    </div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="応募者共有情報lab">共有情報</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="応募者共有情報">
+										</div>
+                                    </div>
+                                    
+									<div class="form-group">
+										<div class="col-sm-3" style="background-color:rgba(100, 149, 237, 0.2); text-align: center; font-weight:bold;">基本情報
+										</div>
+									</div>
+
+                                    <div class="form-group">
+										<label class="col-sm-3 control-label" id="姓lab">姓</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="姓">
+										</div>
+										<label class="col-sm-2 control-label" id="名lab">名</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="名">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="姓カナlab">姓(カナ)</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="姓カナ">
+										</div>
+										<label class="col-sm-2 control-label" id="名カナlab">名(カナ)</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="名カナ">
+										</div>
+									</div>
+									<div class="form-group">
+
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="性別lab">性別</label>
+										<div class="col-sm-3">
+											<SELECT id='性別' class='form-control'>
+												||@性別@||
+											</SELECT>
+										</div>
+										<label class="col-sm-2 control-label" id="生年月日lab">生年月日</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control datepicker" id="生年月日">
+										</div>
+									</div>
+
+                                    
+                                    <div class="form-group">
+										<div class="col-sm-3" style="background-color:rgba(100, 149, 237, 0.2); text-align: center; font-weight:bold;">現住所
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="郵便番号lab">郵便番号</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="郵便番号">
+										</div>
+										<p class="form-control-static col-sm-6">※ｴﾝﾀｰｷｰ：住所取得(都道府県入力ない時)</p>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="都道府県lab">都道府県</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="都道府県">
+										</div>
+										<label class="col-sm-2 control-label" id="市区町村lab">市区町村</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="市区町村">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="町域lab">町域</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="町域">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="アパート名などlab">アパート名など</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="アパート名など">
+										</div>
+									</div>
+                                    
+                                    
+									<div class="form-group">
+										<div class="col-sm-3" style="background-color:rgba(100, 149, 237, 0.2); text-align: center; font-weight:bold;">連絡先
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="自宅電話番号lab">自宅電話番号</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="自宅電話番号">
+										</div>
+										<label class="col-sm-3 control-label" id="携帯電話番号lab">携帯電話番号</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="携帯電話番号">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="緊急連絡先区分lab">緊急連絡先区分</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="緊急連絡先区分">
+												||@緊急連絡先区分@||
+											</select>
+										</div>
+										<label class="col-sm-3 control-label" id="緊急連絡先番号lab">緊急連絡先</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="緊急連絡先番号">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="個人メールlab">個人メール</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="個人メール">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-sm-3" style="background-color:rgba(100, 149, 237, 0.2); text-align: center; font-weight:bold;">学歴情報
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="学歴＿区分lab">学歴区分</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="学歴＿区分">
+												||@最終学歴@||
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="学歴＿学校名lab">学校名</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="学歴＿学校名">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-sm-3" style="background-color:rgba(100, 149, 237, 0.2); text-align: center; font-weight:bold;">区分情報
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="国籍slab">国名[検索]</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="国籍s">
+											<div class="tsArea6"></div>
+										</div>
+										<label class="col-sm-1 control-label" id="国籍lab">CD</label>
+										<div class="col-sm-2">
+											<input type="text" class="form-control" id="国籍" tabindex="-1" readonly>
+										</div>
+                                    </div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="学生＿区分lab">学生区分</label>
+										<div class="col-sm-2">
+											<select class="form-control" id="学生＿区分">
+												||@学生区分@||
+											</select>
+										</div>
+										<label class="col-sm-3 control-label" id="学生＿学校名lab">学校・学部名</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="学生＿学校名">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="障碍者区分lab">障碍者区分</label>
+										<div class="col-sm-2">
+											<select class="form-control" id="障碍者区分">
+												||@障碍者区分@||
+											</select>
+										</div>
+									</div>
+
+
+
+									<div class="form-group">
+										<div class="col-sm-3" style="background-color:rgba(100, 149, 237, 0.2); text-align: center; font-weight:bold;">社員情報
+										</div>
+									</div>
+
+                                    <div class="form-group">
+										<label class="col-sm-3 control-label" id="職群lab">職群</label>
+										<div class="col-sm-6">
+											<select class="form-control" id="職群">
+												||@職群@||
+											</select>
+										</div>
+                                        <label class="col-sm-1 control-label" id="号数lab">号数</label>
+										<div class="col-sm-2">
+											<select class="form-control" id="号数">
+												||@号数@||
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="所属部署コードslab">所属部署[検索]</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="所属部署コードs">
+											<div class="tsArea1"></div>
+										</div>
+										<label class="col-sm-1 control-label" id="所属部署コードlab">CD</label>
+										<div class="col-sm-2">
+											<input type="text" class="form-control" id="所属部署コード" tabindex="-1" readonly>
+										</div>
+									</div>
+
+                                    <div class="form-group">
+										<label class="col-sm-3 control-label" id="入社日lab">入社日</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control datepicker" id="入社日">
+										</div>
+                                        <label class="col-sm-2 control-label" id="パスワードlab">ﾊﾟｽﾜｰﾄﾞ</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="パスワード">
+										</div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+										<label class="col-sm-3 control-label" id="通勤方法lab">通勤方法(メイン)</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="通勤方法">
+												||@通勤方法@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="利用乗物lab">利用乗物</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="利用乗物">
+												||@利用乗物@||
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="管理権限lab">管理権限</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="管理権限">
+												||@管理権限@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="管理領域コードlab">管理領域</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="管理領域コード">
+												||@jyuc05opt@||
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="稟議権限lab">稟議権限</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="稟議権限">
+                                                ||@稟議権限@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="権限lab">権限2</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="権限">
+												||@権限@||
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="会社携帯電話番号lab">会社携帯番号</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="会社携帯電話番号">
+										</div>
+										<label class="col-sm-2 control-label" id="会社メールアドレスlab">会社ﾒｰﾙ</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="会社メールアドレス">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="社宅有無lab">社宅・寮</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="社宅有無">
+												||@社宅有無@||
+											</select>
+										</div>
+
+                                    </div>
+								</div>
+								<!-- tab2の内容 -->
+								<div id="tab2c" class="tab-pane">
+									<div class="form-group">
+										<div class="col-sm-3" style="background-color:rgba(100, 149, 237, 0.2); text-align: center; font-weight:bold;">派遣単価情報
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="請求単価lab">請求単価</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="請求単価">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="請求交通費＿金額lab">請求交通費</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="請求交通費＿金額">
+										</div>
+										<label class="col-sm-3 control-label" id="請求交通費＿区分lab">請求交通費区分</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="請求交通費＿区分">
+												<option value=""></option>
+												<option value="／月">毎月</option>
+												<option value="／日">毎日</option>
+											</select>
+										</div>
+										<label class="col-sm-3 control-label" id="請求交通費＿上限lab">請求交通上限</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="請求交通費＿上限">
+										</div>
+                                    </div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="支払単価lab">支払単価</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="支払単価">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="支払手当１＿区分lab">支払手当1</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="支払手当１＿区分">
+												<option value=""></option>
+												<option value="ginou">技能手当</option>
+												<option value="shift">シフト手当</option>
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="支払手当１＿単価lab">単価</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="支払手当１＿単価">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="支払手当２＿区分lab">支払手当2</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="支払手当２＿区分">
+												<option value=""></option>
+												<option value="ginou">技能手当</option>
+												<option value="shift">シフト手当</option>
+											</select>
+										</div>										
+										<label class="col-sm-2 control-label" id="支払手当２＿単価lab">単価</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="支払手当２＿単価">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="支払手当３＿区分lab">支払手当3</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="支払手当３＿区分">
+												<option value=""></option>
+												<option value="ginou">技能手当</option>
+												<option value="shift">シフト手当</option>
+											</select>
+										</div>										
+										<label class="col-sm-2 control-label" id="支払手当３＿単価lab">単価</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="支払手当３＿単価">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="支払手当４＿区分lab">支払手当4</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="支払手当４＿区分">
+												<option value=""></option>
+												<option value="ginou">技能手当</option>
+												<option value="shift">シフト手当</option>
+											</select>
+										</div>										
+										<label class="col-sm-2 control-label" id="支払手当４＿単価lab">単価</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="支払手当４＿単価">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="通勤手当＿単価lab">通勤手当単価</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="通勤手当＿単価">
+										</div>
+										<label class="col-sm-3 control-label" id="通勤手当＿区分lab">通勤手当区分</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="通勤手当＿区分">
+												<option value=""></option>
+												<option value="／月">毎月</option>
+												<option value="／日">毎日</option>
+											</select>
+										</div>
+										<label class="col-sm-3 control-label" id="通勤手当＿上限lab">交通費上限</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="通勤手当＿上限">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-sm-3" style="background-color:rgba(100, 149, 237, 0.2); text-align: center; font-weight:bold;">振込・口座情報
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" id="振込日lab">振込日</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="振込日">
+												<option value=""></option>
+												<option value="10">10日</option>
+												<option value="15">15日</option>
+												<option value="20">20日</option>
+												<option value="25">25日</option>
+												<option value="月末">月末</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label" id="ginkolab">銀行名[検索]</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="ginko">
+											<div class="tsArea4"></div>
+										</div>
+										<label class="col-sm-3 control-label" id="口座＿銀行コードlab">銀行CD</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="口座＿銀行コード" tabindex="-1" readonly>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label" id="shitenlab">支店名[検索]</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="shiten">
+											<div class="tsArea5"></div>
+										</div>
+										<label class="col-sm-3 control-label" id="口座＿支店コードlab">支店CD</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="口座＿支店コード" tabindex="-1" readonly>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" id="口座＿種別lab">口座種別</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="口座＿種別">
+												<option value=""></option>
+												<option value="普通">普通</option>
+												<option value="当座">当座</option>
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="口座＿番号lab">口座番号</label>
+										<div class="col-sm-5">
+											<input type="text" class="form-control" id="口座＿番号">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-sm-3" style="background-color:rgba(100, 149, 237, 0.2); text-align: center; font-weight:bold;">税金・保険情報
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="課税区分lab">課税区分</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="課税区分">
+												<option value=""></option>
+												<option value="甲欄">甲欄</option>
+												<option value="乙欄">乙欄</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="保険＿労災lab">労災保険</label>
+										<div class="col-sm-2">
+											<select class="form-control" id="保険＿労災">
+												<option value=""></option>
+												<option value="×">無し</option>
+												<option value="〇">〇</option>
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="保険＿雇用lab">雇用保険</label>
+										<div class="col-sm-2">
+											<select class="form-control" id="保険＿雇用">
+												<option value=""></option>
+												<option value="×">無し</option>
+												<option value="〇">〇</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="保険＿介護lab">介護保険</label>
+										<div class="col-sm-2">
+											<select class="form-control" id="保険＿介護">
+												<option value=""></option>
+												<option value="×">無し</option>
+												<option value="〇">〇</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="保険＿厚生lab">厚生年金保険</label>
+										<div class="col-sm-2">
+											<select class="form-control" id="保険＿厚生">
+												<option value=""></option>
+												<option value="×">無し</option>
+												<option value="01">01</option>
+												<option value="02">02</option>
+												<option value="03">03</option>
+												<option value="04">04</option>
+												<option value="05">05</option>
+												<option value="06">06</option>
+												<option value="07">07</option>
+												<option value="08">08</option>
+												<option value="09">09</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+												<option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+												<option value="21">21</option>
+												<option value="22">22</option>
+												<option value="23">23</option>
+												<option value="24">24</option>
+												<option value="25">25</option>
+												<option value="26">26</option>
+												<option value="27">27</option>
+												<option value="28">28</option>
+												<option value="29">29</option>
+												<option value="30">30</option>
+												<option value="31">31</option>
+												<option value="32">32</option>
+												<option value="33">33</option>
+												<option value="34">34</option>
+												<option value="35">35</option>
+												<option value="36">36</option>
+												<option value="37">37</option>
+												<option value="38">38</option>
+												<option value="39">39</option>
+												<option value="40">40</option>
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="保険＿健康lab">健康保険</label>
+										<div class="col-sm-2">
+											<select class="form-control" id="保険＿健康">
+												<option value=""></option>
+												<option value="×">無し</option>
+												<option value="01">01</option>
+												<option value="02">02</option>
+												<option value="03">03</option>
+												<option value="04">04</option>
+												<option value="05">05</option>
+												<option value="06">06</option>
+												<option value="07">07</option>
+												<option value="08">08</option>
+												<option value="09">09</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+												<option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+												<option value="21">21</option>
+												<option value="22">22</option>
+												<option value="23">23</option>
+												<option value="24">24</option>
+												<option value="25">25</option>
+												<option value="26">26</option>
+												<option value="27">27</option>
+												<option value="28">28</option>
+												<option value="29">29</option>
+												<option value="30">30</option>
+												<option value="31">31</option>
+												<option value="32">32</option>
+												<option value="33">33</option>
+												<option value="34">34</option>
+												<option value="35">35</option>
+												<option value="36">36</option>
+												<option value="37">37</option>
+												<option value="38">38</option>
+												<option value="39">39</option>
+												<option value="40">40</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label" id="住民税＿納付先コードlab" style="display:none;">CD</label>
+										<div class="col-sm-3" style="display:none;">
+											<input type="text" class="form-control" id="住民税＿納付先コード">
+										</div>
+										<label class="col-sm-3 control-label" id="住民税＿納付先コードslab">住民税納付先[検索]</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="住民税＿納付先コードs">
+											<div class="tsArea3"></div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="住民税＿６月lab">6月</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="住民税＿６月">
+										</div>
+										<label class="col-sm-2 control-label" id="住民税＿７月lab">7月</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="住民税＿７月">
+										</div>
+										<div class="col-sm-1">
+										</div>
+										<label class="col-sm-3 control-label" id="住民税＿８月lab">8月</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="住民税＿８月">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-sm-3" style="background-color:rgba(100, 149, 237, 0.2); text-align: center; font-weight:bold;">固定支給
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定支給１＿区分lab">固定支給1</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定支給１＿区分">
+												<option value=""></option>
+												||@ks_01@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定支給１＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定支給１＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定支給２＿区分lab">固定支給2</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定支給２＿区分">
+												<option value=""></option>
+												||@ks_02@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定支給２＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定支給２＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定支給３＿区分lab">固定支給3</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定支給３＿区分">
+												<option value=""></option>
+												||@ks_03@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定支給３＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定支給３＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定支給４＿区分lab">固定支給4</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定支給４＿区分">
+												<option value=""></option>
+												||@ks_04@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定支給４＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定支給４＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定支給５＿区分lab">固定支給5</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定支給５＿区分">
+												<option value=""></option>
+												||@ks_05@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定支給５＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定支給５＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定支給６＿区分lab">固定支給6</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定支給６＿区分">
+												<option value=""></option>
+												||@ks_06@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定支給６＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定支給６＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定支給７＿区分lab">固定支給7</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定支給７＿区分">
+												<option value=""></option>
+												||@ks_07@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定支給７＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定支給７＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定支給８＿区分lab">固定支給8</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定支給８＿区分">
+												<option value=""></option>
+												||@ks_08@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定支給８＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定支給８＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定支給９＿区分lab">固定支給9</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定支給９＿区分">
+												<option value=""></option>
+												||@ks_09@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定支給９＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定支給９＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定支給１０＿区分lab">固定支給10</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定支給１０＿区分">
+												<option value=""></option>
+												||@ks_10@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定支給１０＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定支給１０＿金額">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-sm-3" style="background-color:rgba(100, 149, 237, 0.2); text-align: center; font-weight:bold;">固定控除
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定控除１＿区分lab">固定控除1</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定控除１＿区分">
+												<option value=""></option>
+												||@kk_01@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定控除１＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定控除１＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定控除２＿区分lab">固定控除2</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定控除２＿区分">
+												<option value=""></option>
+												||@kk_02@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定控除２＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定控除２＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定控除３＿区分lab">固定控除3</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定控除３＿区分">
+												<option value=""></option>
+												||@kk_03@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定控除３＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定控除３＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定控除４＿区分lab">固定控除4</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定控除４＿区分">
+												<option value=""></option>
+												||@kk_04@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定控除４＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定控除４＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定控除５＿区分lab">固定控除5</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定控除５＿区分">
+												<option value=""></option>
+												||@kk_05@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定控除５＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定控除５＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定控除６＿区分lab">固定控除6</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定控除６＿区分">
+												<option value=""></option>
+												||@kk_06@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定控除６＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定控除６＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定控除７＿区分lab">固定控除7</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定控除７＿区分">
+												<option value=""></option>
+												||@kk_07@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定控除７＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定控除７＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定控除８＿区分lab">固定控除8</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定控除８＿区分">
+												<option value=""></option>
+												||@kk_08@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定控除８＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定控除８＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定控除９＿区分lab">固定控除9</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定控除９＿区分">
+												<option value=""></option>
+												||@kk_09@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定控除９＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定控除９＿金額">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" id="固定控除１０＿区分lab">固定控除10</label>
+										<div class="col-sm-4">
+											<select class="form-control" id="固定控除１０＿区分">
+												<option value=""></option>
+												||@kk_10@||
+											</select>
+										</div>
+										<label class="col-sm-2 control-label" id="固定控除１０＿金額lab">金額</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" id="固定控除１０＿金額">
+										</div>
+									</div>
+								</div>
+                            </div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" name="button2" id="cancelbtn1" data-dismiss="modal">キャンセル</button>
+						<button type="button" class="btn btn-success" name="button2" id="createbtn2">作成</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- delimiter modal_c -->
+
+        <!-- delimiter modal_search -->
+        <div class="modal" id="modal_search" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+                        <h4 class="modal-title">従業員登録</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class='form-group form-group-sm'>
+                                <div class="col-sm-5">
+                                    <label class="control-label">検索パターン（共通）</label>
+                                    <SELECT id='kpcombok' class='form-control'>
+                                        ||@combo0k@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-7">
+                                </div>
+                            </div>
+                            <div class='form-group form-group-sm'>
+                                <div class="col-sm-5">
+                                    <label class="control-label">検索パターン（カスタム）</label>
+                                    <SELECT id='kpcombo' class='form-control'>
+                                        ||@combo0@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div>　　</div>
+                                    <button type="button" class="btn btn-danger" name="button2" id="patdelbtn1">選択パターンを削除</button>
+                                    <div>　　</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div>　　</div>
+                                    <button type="button" class="btn btn-default" name="button2" id="cancelbtn3" data-dismiss="modal">キャンセル</button>
+                                    <span>　　</span>
+                                    <button type="button" class="btn btn-primary" name="button2" id="searchbtn2">検索</button>
+                                </div>
+                            </div>
+
+                            <div id='formbox1' class='form-group form-group-sm' style='border: 1px solid #90d4ff; padding: 10px; margin:10px; border-radius:5px; background-color:#dddddd'>
+                                <div class="col-sm-10">
+                                    <div>
+                                        <label class='control-label' style='color:#0000FF;'>■検索条件1</label>
+                                    </div>
+                                    <label class='control-label' id='hint1' style='color:#6fbdff; width:100%; text-align:left;'>　</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">AND OR</label>
+                                    <SELECT id='jyouken1' class='form-control' disabled>
+                                        ||@combo3_1@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(前)</label>
+                                    <SELECT id='maekakko1' class='form-control' disabled>
+                                        ||@combo4_1@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">検索項目</label>
+                                    <SELECT id='koumoku1' class='form-control' disabled>
+                                        ||@combo1_1@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">条件に使う値</label>
+                                    <input type='text' class='form-control datepicker' id='val1' value='' data-toggle='tooltip' title='複数値を入力する場合はカンマで区切って下さい'>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">検索条件</label>
+                                    <SELECT id='enzan1' class='form-control' disabled>
+                                        ||@combo2_1@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(後)</label>
+                                    <SELECT id='atokakko1' class='form-control' disabled>
+                                        ||@combo5_1@||
+                                    </SELECT>
+                                </div>
+                            </div>
+                            <div id='formbox2' class='form-group form-group-sm' style='border: 1px solid #90d4ff; padding: 10px; margin:10px; border-radius:5px;'>
+                                <div class="col-sm-10">
+                                    <div>
+                                        <label class='control-label' style='color:#0000FF;'>■検索条件2</label>
+                                    </div>
+                                    <label class='control-label' id='hint2' style='color:#6fbdff; width:100%; text-align:left;'>　</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">AND OR</label>
+                                    <SELECT id='jyouken2' class='form-control'>
+                                        ||@combo3_2@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(前)</label>
+                                    <SELECT id='maekakko2' class='form-control'>
+                                        ||@combo4_2@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">検索項目</label>
+                                    <SELECT id='koumoku2' class='form-control'>
+                                        ||@combo1_2@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">条件に使う値</label>
+                                    <input type='text' class='form-control' id='val2' value='' data-toggle='tooltip' title='複数値を入力する場合はカンマで区切って下さい'>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">検索条件</label>
+                                    <SELECT id='enzan2' class='form-control'>
+                                        ||@combo2_2@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(後)</label>
+                                    <SELECT id='atokakko2' class='form-control'>
+                                        ||@combo5_2@||
+                                    </SELECT>
+                                </div>
+                            </div>
+                            <div id='formbox3' class='form-group form-group-sm' style='border: 1px solid #90d4ff; padding: 10px; margin:10px; border-radius:5px;'>
+                                <div class="col-sm-10">
+                                    <div>
+                                        <label class='control-label' style='color:#0000FF;'>■検索条件3</label>
+                                    </div>
+                                    <label class='control-label' id='hint3' style='color:#6fbdff; width:100%; text-align:left;'>　</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">AND OR</label>
+                                    <SELECT id='jyouken3' class='form-control'>
+                                        ||@combo3_3@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(前)</label>
+                                    <SELECT id='maekakko3' class='form-control'>
+                                        ||@combo4_3@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">検索項目</label>
+                                    <SELECT id='koumoku3' class='form-control'>
+                                        ||@combo1_3@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">条件に使う値</label>
+                                    <input type='text' class='form-control' id='val3' value='' data-toggle='tooltip' title='複数値を入力する場合はカンマで区切って下さい'>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">検索条件</label>
+                                    <SELECT id='enzan3' class='form-control'>
+                                        ||@combo2_3@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(後)</label>
+                                    <SELECT id='atokakko3' class='form-control'>
+                                        ||@combo5_3@||
+                                    </SELECT>
+                                </div>
+                            </div>
+                            <div id='formbox4' class='form-group form-group-sm' style='border: 1px solid #90d4ff; padding: 10px; margin:10px; border-radius:5px;'>
+                                <div class="col-sm-10">
+                                    <div>
+                                        <label class='control-label' style='color:#0000FF;'>■検索条件4</label>
+                                    </div>
+                                    <label class='control-label' id='hint4' style='color:#6fbdff; width:100%; text-align:left;'>　</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">AND OR</label>
+                                    <SELECT id='jyouken4' class='form-control'>
+                                        ||@combo3_4@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(前)</label>
+                                    <SELECT id='maekakko4' class='form-control'>
+                                        ||@combo4_4@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">検索項目</label>
+                                    <SELECT id='koumoku4' class='form-control'>
+                                        ||@combo1_4@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">条件に使う値</label>
+                                    <input type='text' class='form-control' id='val4' value='' data-toggle='tooltip' title='複数値を入力する場合はカンマで区切って下さい'>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">検索条件</label>
+                                    <SELECT id='enzan4' class='form-control'>
+                                        ||@combo2_4@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(後)</label>
+                                    <SELECT id='atokakko4' class='form-control'>
+                                        ||@combo5_4@||
+                                    </SELECT>
+                                </div>
+                            </div>
+                            <div id='formbox1' class='form-group form-group-sm' style='border: 1px solid #cccccc; padding: 10px; margin:10px; border-radius:5px;'>
+                                <div class="col-sm-2">
+                                    <div>
+                                        <label class='control-label' style='color:#e66000;'>■並び順</label>
+                                    </div>
+                                    <label class='control-label'>　</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">並び替え項目１</label>
+                                    <SELECT id='order1' class='form-control'>
+                                        ||@combo1_n1@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">昇降</label>
+                                    <SELECT id='orderopt1' class='form-control'>
+                                        ||@combo6_n1@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">並び替え項目２</label>
+                                    <SELECT id='order2' class='form-control'>
+                                        ||@combo1_n2@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">昇降</label>
+                                    <SELECT id='orderopt2' class='form-control'>
+                                        ||@combo6_n2@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3 col-sm-offset-2">
+                                    <label class="control-label">並び替え項目３</label>
+                                    <SELECT id='order3' class='form-control'>
+                                        ||@combo1_n3@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">昇降</label>
+                                    <SELECT id='orderopt3' class='form-control'>
+                                        ||@combo6_n3@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">並び替え項目４</label>
+                                    <SELECT id='order4' class='form-control'>
+                                        ||@combo1_n4@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">昇降</label>
+                                    <SELECT id='orderopt4' class='form-control'>
+                                        ||@combo6_n4@||
+                                    </SELECT>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <div class='form-group form-group-sm' style='padding:10px;'>
+                            <div class="col-sm-4" style="text-align:left;">
+                                <label class="control-label">パターン保存名</label>
+                                <input type='text' class='form-control' id='ptnm' value=''>
+                            </div>
+                            <div class="col-sm-2">
+                                <div>　　</div>
+                                <button type="button" class="btn btn-success" name="button2" id="patcrtbtn1">パターンを保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- delimiter modal_search -->
+	</div>
+
+	<div id="modalParent2">
+		<!-- delimiter modal_d -->
+		<div class="modal" id="modal_d" tabindex="-1">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class=modal-title><b>確認</b></div>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<div>削除します。宜しいですか？</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" name="button2" id="cancelbtn2" data-dismiss="modal">いいえ</button>
+						<button type="button" class="btn btn-danger" name="button2" id="delbtn2">はい</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- delimiter modal_d -->
+		<!-- delimiter modal_pd -->
+		<div class="modal" id="modal_pd" tabindex="-1">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class=modal-title><b>確認</b></div>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<div>削除します。宜しいですか？</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" name="button2" data-dismiss="modal">いいえ</button>
+						<button type="button" class="btn btn-danger" name="button2" id="patdelbtn2">はい</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- delimiter modal_pd -->
+	</div>
+
+	<div id="modalParent3">
+		<!-- delimiter modal_n -->
+		<div class="modal" id="modal_n" tabindex="-1">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class=modal-title>
+							<h4>通知
+                                <h4>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            ||@body@||
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- delimiter modal_n -->
+    </div>
+    <!-- delimiter del -->
+
+
+    <!-- delimiter del -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="home.php">ホーム</a></li>
+                    <li class="active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">マスター<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="syushi.php">会社</a></li>
+                            <li><a href="syushi.php">社員</a></li>
+                            <li><a href="syushi.php">会議日程</a></li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">収支<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="syushi.php">入力</a></li>
+                            <li><a href="syushi.php">表示</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="kintai.php">勤怠</a></li>
+                    <li><a href="login.php">ログアウト</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- delimiter del -->
+            
+    <!-- delimiter -->
+    <!-- @nav@ -->
+    <!-- delimiter -->
+
+        <div class="container">
+            <div class="dispo-pad15">
+                <form class="form-group form-inline">
+                <label class="control-label dispo-title01" style="font-size:24px ;margin-bottom:10px;margin-right:40px;">【従業員マスター】</label>
+                    <button type="button" class="btn btn-success" style="margin-right:40px;margin-bottom:10px;" id="createbtn1" data-toggle="modal" data-target="#modal_c">新規</button>
+                    <button type="button" class="btn btn-primary" style="margin-right:40px;margin-bottom:10px;" id="searchbtn1" data-toggle="modal" data-target="#modal_search">検索</button>
+                </form>
+				<form action="stuffmst.php" class="form-group form-inline" target="_blank" method="post">
+                	<div id="tabu1"></div>
+				</form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

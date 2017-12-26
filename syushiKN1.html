@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- delimiter del -->
+    <title>収支</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../../favicon.ico">
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <link href="main.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="main.js"></script>
+    <script src="fixed_midashi.js"></script>
+    <!-- delimiter del -->
+    <!-- delimiter -->
+    <!-- @header@ -->
+    <!-- delimiter -->
+</head>
+
+<body>
+    <!-- delimiter del -->
+    <div name='del-navigation'></div>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="home.php">ホーム</a></li>
+                    <li class="active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">収支<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="syushiT1.php">入力</a></li>
+                            <li><a href="syushiH1.php">表示</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="kintai.php">勤怠</a></li>
+                    <li><a href="login.php">ログアウト</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- delimiter del -->
+    <!-- delimiter -->
+    <!-- @nav@ -->
+    <!-- delimiter -->
+
+    <div class="container">
+        <div class="dispo-pad15">
+            <div class="dispo-title01">【収支計画入力】</div>
+            <span>責任者会議日:</span>
+            <input type="date" id="kakuteibi">
+            <span>　　</span>
+            <span>オプション:</span>
+            <select name="bumon" id="bumon">
+                <option value="">通常</option>
+                <option value="">ワースト</option>
+            </select>
+            <span>　　　　　</span>
+            <input type="button" value="データを送信" id="button1">
+            <div>　</div>
+            <textarea class="dispo-width100" id="torikomi" name="torikomi" rows="2" placeholder="エクセルの取込シートを貼り付け"></textarea>
+            <table class="table table-bordered table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th width="80">日付</th>
+                        <th width="80">部門</th>
+                        <th width="80">売上</th>
+                        <th width="80">社員・ST</th>
+                        <th width="80">スタッフ</th>
+                        <th width="80">資材等</th>
+                        <th width="80">社会保険</th>
+                    </tr>
+                </thead>
+                <tbody id="tablebody">
+                    <!-- delimiter del -->
+                    <tr>
+                        <td>　</td>
+                        <td>
+                            <div></div>
+                        </td>
+                        <td>
+                            <div></div>
+                        </td>
+                        <td>
+                            <div></div>
+                        </td>
+                        <td>
+                            <div></div>
+                        </td>
+                        <td>
+                            <div></div>
+                        </td>
+                        <td>
+                            <div></div>
+                        </td>
+                    </tr>
+                    <!-- delimiter del -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.container -->
+
+</body>
+
+</html>

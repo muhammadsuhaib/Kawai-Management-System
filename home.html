@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- delimiter del -->
+    <title>お知らせ</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../../favicon.ico">
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <link href="main.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="main.js"></script>
+
+    <!-- delimiter del -->
+
+    <!-- delimiter -->
+    <!-- @header@ -->
+    <!-- delimiter -->
+</head>
+
+<body>
+    <!-- delimiter -->
+    <!-- @standard@ -->
+    <!-- delimiter -->
+
+    <!-- delimiter del -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="home.php">ホーム</a></li>
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">収支<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="syushiT1.php">入力</a></li>
+                            <li><a href="syushiH1.php">表示</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="kintai.php">勤怠</a></li>
+                    <li><a href="login.php">ログアウト</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- delimiter del -->
+    <!-- delimiter -->
+    <!-- @nav@ -->
+    <!-- delimiter -->
+
+    <div class="container">
+        <div class="dispo-pad15">
+            <label class="control-label dispo-title01">【お知らせ】</label>
+            <span class="blank-add"></span>
+            <button type="button" class="btn btn-success" id="createbtn1" onclick="modalCall(this)">新規</button>
+            <span class="blank-add"></span>
+            <button type="button" class="btn btn-primary" id="searchbtn1">検索</button>
+            <div>　</div>
+
+
+            <hr>
+            <p>見出し１</p>
+            <span>ここにコンテンツが表示されます。１</span>
+            <br>
+            <br>
+            <button type="button" class="btn btn-default" id="editbtn1">編集</button>
+            <hr>
+            <p>見出し２</p>
+            <span>ここにコンテンツが表示されます。２</span>
+            <br>
+            <br>
+            <button type="button" class="btn btn-default" id="editbtn2">編集</button>
+            <hr>
+            <p>見出し３</p>
+            <span>ここにコンテンツが表示されます。３</span>
+            <br>
+            <br>
+            <button type="button" class="btn btn-default" id="editbtn3">編集</button>
+            <hr>
+            <p>見出し４</p>
+            <span>ここにコンテンツが表示されます。４</span>
+            <br>
+            <br>
+            <button type="button" class="btn btn-default" id="editbtn4">編集</button>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- delimiter del -->
+    <meta charset="UTF-8">
+    <title>Clock</title>
+    <!-- delimiter del -->
+
+    <!-- delimiter -->
+    <!-- @header@ -->
+    <!-- delimiter -->
+    <script type="text/javascript">
+        <!--
+        function clock() {
+            var width = 180;
+            var height = 180;
+            var centerX = Math.floor(width / 2);
+            var centerY = Math.floor(height / 2);
+            var canvas = document.getElementById('clock');
+            var context = canvas.getContext('2d');
+
+            setInterval(drawClock, 1000);
+            drawClock();
+            setInterval(digital, 1000);
+            digital();
+
+            function drawClock() {
+                var date = new Date();
+                var hour = date.getHours();
+                var minute = date.getMinutes();
+                var second = date.getSeconds();
+
+                // 色の指定
+                context.strokeStyle = '#666666';
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                // 文字盤の描画
+                context.beginPath();
+                context.arc(centerX, centerY, centerX - 1, 0, Math.PI * 2, false);
+                context.stroke();
+                context.save();
+                context.translate(width / 2, height / 2);
+                for (var i = 0; i < 360; i += 30) {
+                    context.rotate(30 * Math.PI / 180);
+                    context.beginPath();
+                    context.moveTo(0, centerY * 0.8);
+                    context.lineTo(0, centerY * 0.9);
+                    context.stroke();
+                }
+                context.translate(-width / 2, -height / 2);
+                context.restore();
+                context.strokeStyle = '#333333';
+                drawHand(centerY * 0.5, hour * 30 + minute / 60 * 30);
+                drawHand(centerY * 0.8, minute * 6 + second / 60 * 6);
+                context.strokeStyle = '#EE0000';
+                drawHand(centerY * 0.8, second * 6);
+            }
+
+            // 針の描画
+            function drawHand(length, angle) {
+                context.save();
+                context.translate(centerX, centerY);
+                context.rotate(angle * Math.PI / 180);
+                context.beginPath();
+                context.moveTo(0, 0);
+                context.lineTo(0, -length);
+                context.stroke();
+                context.restore();
+            }
+
+            function digital() {
+                var myDay = new Array("日", "月", "火", "水", "木", "金", "土");
+                var now = new Date();
+                var year = now.getFullYear(); // 年
+                var month = now.getMonth() + 1; // 月
+                var date = now.getDate(); // 日
+                var day = now.getDay(); // 曜日用
+                var dayH = ""; // 日付表示用
+                var hour = now.getHours(); // 時
+                var min = now.getMinutes(); // 分
+                var sec = now.getSeconds(); // 秒
+
+                // 数値が1桁の場合、頭に0を付けて2桁で表示する指定
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (date < 10) {
+                    dayH = "0" + date;
+                }
+                if (hour < 10) {
+                    hour = "0" + hour;
+                }
+                if (min < 10) {
+                    min = "0" + min;
+                }
+                if (sec < 10) {
+                    sec = "0" + sec;
+                }
+                var clock2 = year + '年' + month + '月' + dayH + '日' + '（' + myDay[day] + '）';
+                var clock1 = '-** ' + hour + ':' + min + ':' + sec + ' **-';
+                document.getElementById('clock-01').innerHTML = clock1.toLocaleString();
+                document.getElementById('clock-02').innerHTML = clock2.toLocaleString();
+            }
+        }
+        window.onload = clock;
+
+        //-->
+    </script>
+</head>
+
+<body>
+    <!-- delimiter -->
+    <!-- @standard@ -->
+    <!-- delimiter -->
+
+    <!-- delimiter -->
+    <!-- @nav@ -->
+    <!-- delimiter -->
+    <div class="container">
+        <div class='form-group form-group-sm' style='padding:10px;'>
+            <span class="blank-add1em">　</span>
+
+            <div class="col-sm-4" style="text-align:left;">
+                <canvas id="clock" width="200px" height="180px"></canvas>
+                <b><div id="clock-02" style="font-size:18px;"></div></b>
+                <b><div id="clock-01" style="font-size:25px;"></div></b>
+                <div>　</div>
+                <label class="control-label">バーコード情報</label>
+                <input type='password' class='form-control' id='barcode' value=''>
+                <div>　</div>
+            </div>
+            <div class="col-sm-8" style="text-align:left;">
+                <div class="scroll_div">
+                    <table _fixedhead="rows:1" class="table table-bordered table-condensed table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width:130px;">氏名</th>
+                                <th style="width:130px;">日付</th>
+                                <th style="width:100px;">出勤</th>
+                                <th style="width:100px;">退勤</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablebody">
+                            <tr>
+                                <td>
+                                    <div>藤井　良和</div>
+                                </td>
+                                <td>
+                                    <div>2017/01/01(水)</div>
+                                </td>
+                                <td>
+                                    <div>08:15</div>
+                                </td>
+                                <td>
+                                    <div>17:00</div>
+                                </td>
+                                <tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

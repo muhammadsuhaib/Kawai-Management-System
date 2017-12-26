@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- delimiter del -->
+    <title>部門別勤怠入力（時給）</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../../favicon.ico">
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="fixed_midashi.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+    <script src="https://unpkg.com/flatpickr"></script>
+
+    <script src="moment-with-locales.js"></script>
+    <script src="bootstrap-material-datetimepicker.js"></script>
+    <link href="bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/3.2.2/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/3.2.2/js/tabulator.min.js"></script>
+<link href="dist/css/bootstrap/tabulator_bootstrap.min.css" rel="stylesheet">
+
+    <link href="main.css" rel="stylesheet">
+
+    <script src="main.js"></script>
+	<script>
+var selectEditor = function(cell, onRendered, success, cancel, editorParams){
+        //cell - the cell component for the editable cell
+        //onRendered - function to call when the editor has been rendered
+        //success - function to call to pass the succesfully updated value to Tabulator
+        //cancel - function to call to abort the edit and return to a normal cell
+        //editorParams - editorParams object set in column defintion
+    //create and style editor
+    var editor = $("<select class='form-control'><option value=''></option><option value='male'>male</option><option value='female'>female</option></select>");
+/*    editor.css({
+        "padding":"3px",
+        "width":"100%",
+        "box-sizing":"border-box",
+    });
+*/
+    //Set value of editor to the current value of the cell
+    editor.val(cell.getValue());
+    //set focus on the select box when the editor is selected (timeout allows for editor to be added to DOM)
+    onRendered(function(){
+      editor.focus();
+    });
+    //when the value has been set, trigger the cell to update
+    editor.on("change blur", function(e){
+        success(editor.val());
+    });
+    //return the editor element
+    return editor;
+};
+        $(document).ready(function(){
+			// tabulatorは最終列にwidth:1で全角スペースカラムを作ること。入れないとセルheightが狭くなる。
+            $("#tabu1").tabulator({
+                height:450,
+                fitColumns:true,
+                tooltipsHeader:true,
+                columns:[
+                    {width:20, title:"変更", field:"change", align:"center",frozen:true},
+                    {width:200, title:"氏名#cd", field:"shimei", align:"left",editor:'input' ,frozen:true},
+                    {width:90, title:"ヘルプ", field:"help", align:"left"},
+                    {width:120, title:"勤務区分", field:"kubun", align:"left",editor:selectEditor},
+                    {width:100, title:"出勤時刻", field:"kaishi", align:"left",editor:'input', formatter:function(cell, formatterParams){
+                        var tim = cell.getValue();
+                        return tim.substr(0,2) + ':' + tim.substr(2,2)}
+                    },
+                    {width:100, title:"退勤時刻", field:"syuryo", align:"left",editor:'input', formatter:function(cell, formatterParams){
+                        var tim = cell.getValue();
+                        return tim.substr(0,2) + ':' + tim.substr(2,2)}
+                    },
+                    {width:100, title:"休憩時間", field:"kyukei", align:"left",editor:'input', formatter:function(cell, formatterParams){
+                        var tim = cell.getValue();
+                        return tim.substr(0,2) + ':' + tim.substr(2,2)}
+                    },
+                    {width:100, title:"深夜休憩", field:"shinya", align:"left",editor:'input', formatter:function(cell, formatterParams){
+                        var tim = cell.getValue();
+                        return tim.substr(0,2) + ':' + tim.substr(2,2)}
+                    },
+                    {width:1, title:"", field:"dm"}
+                ],
+                tooltips:function(cell){
+                    return cell.getValue();
+                },
+				rowFormatter:function(row){
+					var data = row.getData();
+					if(data.seikyu == "〇"){
+						row.getElement().css({"background-color":"#c2a6ff"});
+					}
+				},
+                cellEdited:function(cell){
+                //data - the updated table data
+//                    console.log(cell.getRow().getData().id);
+                    var row = cell.getRow();
+                    row.update({'change':'●'});
+//                    console.log(cell.getOldValue());
+                },
+            });
+			var tableData = [
+				{id:1,dm:'　',shimei:'female', help:'',kubun:'',kaishi:'',syuryo:'',kyukei:'',shinya:''},
+    			{id:2,shimei:'male', help:'',kubun:'',kaishi:'',syuryo:'',kyukei:'',shinya:''},
+    			{id:3,shimei:'female', help:'',kubun:'',kaishi:'',syuryo:'',kyukei:'',shinya:''}
+			]
+			$("#tabu1").tabulator("setData", tableData);
+			
+		});
+
+    </script>
+    <!-- delimiter del -->
+
+    <!-- delimiter -->
+    <!-- @header@ -->
+    <!-- delimiter -->
+</head>
+
+<body>
+    <!-- delimiter -->
+    <!-- @standard@ -->
+    <!-- delimiter -->
+
+    <!-- delimiter del -->
+    <div id="modalParent1">
+        <!-- delimiter modal_ud -->
+        <div class="modal" id="modal_ud" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+                        <h4 class="modal-title">勤怠実績登録</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item active">
+                                    <a href="#tab1ud" class="nav-link navbar-default active" data-toggle="tab">メインタブ</a></li>
+                            </ul>
+                            <div class="tab-content" style="padding:10px;">
+                                <div id="tab1ud" class="tab-pane active">
+                                    <!--Tab1の内容-->
+                                    <div class="form-group" style="display: none;">
+                                        <label class="col-sm-3 control-label" id="lab_cd_ud">CD</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="cd_ud" value="||@cd_ud@||">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" id="lab00ud">一括入力</label>
+                                        <div class="col-sm-4">
+                                            <textarea rows="3" class="form-control" id="syushi00ud">||@syushi00ud@||</textarea>
+                                        </div>
+                                        <div>
+                                        <button type="button" style="margin-top: 10px; margin-left:10px;" class="btn" name="button2" id="syushibtn">一括入力適用</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div id="tabu2"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" name="button2" id="delbtn1" data-toggle="modal" data-target="#modal_d">削除</button>
+                        <button type="button" class="btn btn-default" name="button2" id="cancelbtn1" data-dismiss="modal">キャンセル</button>
+                        <button type="button" class="btn btn-primary" name="button2" id="upbtn1">更新</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- delimiter modal_ud -->
+
+        <!-- delimiter modal_search -->
+        <div class="modal" id="modal_search" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+                        <h4 class="modal-title">売上計画</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class='form-group form-group-sm'>
+                                <div class="col-sm-5">
+                                    <label class="control-label">検索パターン（共通）</label>
+                                    <SELECT id='kpcombok' class='form-control'>
+                                        ||@combo0k@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-7">
+                                </div>
+                            </div>
+                            <div class='form-group form-group-sm'>
+                                <div class="col-sm-5">
+                                    <label class="control-label">検索パターン（カスタム）</label>
+                                    <SELECT id='kpcombo' class='form-control'>
+                                        ||@combo0@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div>　　</div>
+                                    <button type="button" class="btn btn-danger" name="button2" id="patdelbtn1">選択パターンを削除</button>
+                                    <div>　　</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div>　　</div>
+                                    <button type="button" class="btn btn-default" name="button2" id="cancelbtn3" data-dismiss="modal">キャンセル</button>
+                                    <span>　　</span>
+                                    <button type="button" class="btn btn-primary" name="button2" id="searchbtn2">検索</button>
+                                </div>
+                            </div>
+
+                            <div id='formbox1' class='form-group form-group-sm' style='border: 1px solid #90d4ff; padding: 10px; margin:10px; border-radius:5px; background-color:#dddddd'>
+                                <div class="col-sm-10">
+                                    <div>
+                                        <label class='control-label' style='color:#0000FF;'>■検索条件1</label>
+                                    </div>
+                                    <label class='control-label' id='hint1' style='color:#6fbdff; width:100%; text-align:left;'>　</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label"></label>
+                                    <SELECT id='jyouken1' class='form-control' disabled>
+                                        ||@combo3_1@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(前)</label>
+                                    <SELECT id='maekakko1' class='form-control' disabled>
+                                        ||@combo4_1@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">検索項目</label>
+                                    <SELECT id='koumoku1' class='form-control' disabled>
+                                        ||@combo1_1@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">条件に使う値</label>
+                                    <input type='text' class='form-control' id='val1' value='' data-toggle='tooltip' title='複数値を入力する場合はカンマで区切って下さい'>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">検索条件</label>
+                                    <SELECT id='enzan1' class='form-control' disabled>
+                                        ||@combo2_1@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(後)</label>
+                                    <SELECT id='atokakko1' class='form-control' disabled>
+                                        ||@combo5_1@||
+                                    </SELECT>
+                                </div>
+                            </div>
+                            <div id='formbox2' class='form-group form-group-sm' style='border: 1px solid #90d4ff; padding: 10px; margin:10px; border-radius:5px;'>
+                                <div class="col-sm-10">
+                                    <div>
+                                        <label class='control-label' style='color:#0000FF;'>■検索条件2</label>
+                                    </div>
+                                    <label class='control-label' id='hint2' style='color:#6fbdff; width:100%; text-align:left;'>　</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">AND OR</label>
+                                    <SELECT id='jyouken2' class='form-control'>
+                                        ||@combo3_2@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(前)</label>
+                                    <SELECT id='maekakko2' class='form-control'>
+                                        ||@combo4_2@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">検索項目</label>
+                                    <SELECT id='koumoku2' class='form-control'>
+                                        ||@combo1_2@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">条件に使う値</label>
+                                    <input type='text' class='form-control' id='val2' value='' data-toggle='tooltip' title='複数値を入力する場合はカンマで区切って下さい'>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">検索条件</label>
+                                    <SELECT id='enzan2' class='form-control'>
+                                        ||@combo2_2@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(後)</label>
+                                    <SELECT id='atokakko2' class='form-control'>
+                                        ||@combo5_2@||
+                                    </SELECT>
+                                </div>
+                            </div>
+                            <div id='formbox3' class='form-group form-group-sm' style='border: 1px solid #90d4ff; padding: 10px; margin:10px; border-radius:5px;'>
+                                <div class="col-sm-10">
+                                    <div>
+                                        <label class='control-label' style='color:#0000FF;'>■検索条件3</label>
+                                    </div>
+                                    <label class='control-label' id='hint3' style='color:#6fbdff; width:100%; text-align:left;'>　</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">AND OR</label>
+                                    <SELECT id='jyouken3' class='form-control'>
+                                        ||@combo3_3@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(前)</label>
+                                    <SELECT id='maekakko3' class='form-control'>
+                                        ||@combo4_3@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">検索項目</label>
+                                    <SELECT id='koumoku3' class='form-control'>
+                                        ||@combo1_3@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">条件に使う値</label>
+                                    <input type='text' class='form-control' id='val3' value='' data-toggle='tooltip' title='複数値を入力する場合はカンマで区切って下さい'>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">検索条件</label>
+                                    <SELECT id='enzan3' class='form-control'>
+                                        ||@combo2_3@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(後)</label>
+                                    <SELECT id='atokakko3' class='form-control'>
+                                        ||@combo5_3@||
+                                    </SELECT>
+                                </div>
+                            </div>
+                            <div id='formbox4' class='form-group form-group-sm' style='border: 1px solid #90d4ff; padding: 10px; margin:10px; border-radius:5px;'>
+                                <div class="col-sm-10">
+                                    <div>
+                                        <label class='control-label' style='color:#0000FF;'>■検索条件4</label>
+                                    </div>
+                                    <label class='control-label' id='hint4' style='color:#6fbdff; width:100%; text-align:left;'>　</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">AND OR</label>
+                                    <SELECT id='jyouken4' class='form-control'>
+                                        ||@combo3_4@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(前)</label>
+                                    <SELECT id='maekakko4' class='form-control'>
+                                        ||@combo4_4@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">検索項目</label>
+                                    <SELECT id='koumoku4' class='form-control'>
+                                        ||@combo1_4@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">条件に使う値</label>
+                                    <input type='text' class='form-control' id='val4' value='' data-toggle='tooltip' title='複数値を入力する場合はカンマで区切って下さい'>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">検索条件</label>
+                                    <SELECT id='enzan4' class='form-control'>
+                                        ||@combo2_4@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">括弧(後)</label>
+                                    <SELECT id='atokakko4' class='form-control'>
+                                        ||@combo5_4@||
+                                    </SELECT>
+                                </div>
+                            </div>
+                            <div id='formbox1' class='form-group form-group-sm' style='border: 1px solid #cccccc; padding: 10px; margin:10px; border-radius:5px;'>
+                                <div class="col-sm-2">
+                                    <div>
+                                        <label class='control-label' style='color:#e66000;'>■並び順</label>
+                                    </div>
+                                    <label class='control-label'>　</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">並び替え項目１</label>
+                                    <SELECT id='order1' class='form-control'>
+                                        ||@combo1_n1@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">昇降</label>
+                                    <SELECT id='orderopt1' class='form-control'>
+                                        ||@combo6_n1@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">並び替え項目２</label>
+                                    <SELECT id='order2' class='form-control'>
+                                        ||@combo1_n2@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">昇降</label>
+                                    <SELECT id='orderopt2' class='form-control'>
+                                        ||@combo6_n2@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3 col-sm-offset-2">
+                                    <label class="control-label">並び替え項目３</label>
+                                    <SELECT id='order3' class='form-control'>
+                                        ||@combo1_n3@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">昇降</label>
+                                    <SELECT id='orderopt3' class='form-control'>
+                                        ||@combo6_n3@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">並び替え項目４</label>
+                                    <SELECT id='order4' class='form-control'>
+                                        ||@combo1_n4@||
+                                    </SELECT>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="control-label">昇降</label>
+                                    <SELECT id='orderopt4' class='form-control'>
+                                        ||@combo6_n4@||
+                                    </SELECT>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <div class='form-group form-group-sm' style='padding:10px;'>
+                            <div class="col-sm-4" style="text-align:left;">
+                                <label class="control-label">パターン保存名</label>
+                                <input type='text' class='form-control' id='ptnm' value=''>
+                            </div>
+                            <div class="col-sm-2">
+                                <div>　　</div>
+                                <button type="button" class="btn btn-success" name="button2" id="patcrtbtn1">パターンを保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- delimiter modal_search -->
+    </div>
+
+    <div id="modalParent2">
+        <!-- delimiter modal_d -->
+        <div class="modal gran" id="modal_d" tabindex="-1">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class=modal-title><b>確認</b></div>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div>削除します。宜しいですか？</div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" name="button2" id="cancelbtn2" data-dismiss="modal">いいえ</button>
+                        <button type="button" class="btn btn-danger" name="button2" id="delbtn2">はい</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- delimiter modal_d -->
+        <!-- delimiter modal_pd -->
+        <div class="modal gran" id="modal_pd" tabindex="-1">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class=modal-title><b>確認</b></div>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div>削除します。宜しいですか？</div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" name="button2" data-dismiss="modal">いいえ</button>
+                        <button type="button" class="btn btn-danger" name="button2" id="patdelbtn2">はい</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- delimiter modal_pd -->
+    </div>
+
+    <div id="modalParent3">
+        <!-- delimiter modal_n -->
+        <div class="modal gran" id="modal_n" tabindex="-1">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class=modal-title>
+                            <h4>通知<h4></div>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            ||@body@||
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- delimiter modal_n -->
+    </div>
+	<!-- delimiter del -->
+
+
+    <!-- delimiter del -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="home.php">ホーム</a></li>
+                    <li class="active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">マスター<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="syushi.php">部門</a></li>
+                            <li><a href="syushi.php">社員</a></li>
+                            <li><a href="syushi.php">会議日程</a></li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">収支<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="syushi.php">入力</a></li>
+                            <li><a href="syushi.php">表示</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="kintai.php">勤怠</a></li>
+                    <li><a href="login.php">ログアウト</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- delimiter del -->
+    <!-- delimiter -->
+    <!-- @nav@ -->
+    <!-- delimiter -->
+
+    <div class="container">
+        <div class="dispo-pad15">
+            <div>
+                <label class="control-label dispo-title01" style="font-size:24px ;margin-bottom:10px;margin-right:30px;">【日別勤怠】</label>
+            </div>
+            <form class="form-group form-inline">
+                 <label class="control-label" id="lab_ymd_ud" style="margin-bottom:10px;">対象年月日：</label>
+				 <input type="text" class="form-control datepicker" id="ymd_ud" style="width:150px;margin-right:20px;margin-bottom:10px;">
+                 <label class="control-label" id="lab_shimebi_ud" style="margin-bottom:10px;">締日：</label>
+				 <select id="shimebi_ud" class="form-control" style="margin-right:20px;margin-bottom:10px;">
+					<option value=""></option>
+					<option value="10">10日締め</option>
+					<option value="15">15日締め</option>
+					<option value="20">20日締め</option>
+					<option value="25">25日締め</option>
+					<option value="月末">月末締め</option>
+				 </select>
+                 <label class="control-label" id="lab_kubun_ud" style="margin-bottom:10px;">予実区分：</label>
+				 <select id="kubun_ud" class="form-control" style="margin-right:40px;margin-bottom:10px;">
+					<option value="実績">実績</option>
+					<option value="予測">予測</option>
+				 </select>
+                 <label class="control-label" id="lab_hani_ud" style="margin-bottom:10px;">事務範囲：</label>
+				 <select id="hani_ud" class="form-control" style="margin-right:40px;margin-bottom:10px;">
+					<option value=""></option>
+					||@hani@||
+				 </select>
+				 <button type="button" class="btn btn-default" id="searchbtn1" data-toggle="modal" data-target="#modal_search" style="width:80px;margin-bottom:10px;margin-right:40px;">検索</button>
+				 <button type="button" class="btn btn-success" id="shinkibtn" style="width:80px;margin-bottom:10px;margin-right:40px;">新規</button>
+				 <button type="button" class="btn btn-primary" id="koushinbtn" style="width:80px;margin-bottom:10px;margin-right:40px;">更新</button>
+			</form>
+
+            <form class="form-group form-inline">
+            </form>
+            <div id="tabu1"></div>
+        </div>
+
+    </div>
+    </div>		
+</body>
+
+</html>

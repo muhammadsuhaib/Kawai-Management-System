@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<!-- delimiter del -->
+	<title>オーダー入力</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="icon" href="../../favicon.ico">
+	<link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+	<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+	<link href="main.css" rel="stylesheet">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="../../dist/js/bootstrap.min.js"></script>
+	<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+	<script src="main.js"></script>
+	<script src="fixed_midashi.js"></script>
+	<!-- delimiter del -->
+
+	<!-- delimiter -->
+	<!-- @header@ -->
+	<!-- delimiter -->
+</head>
+
+<body>
+	<!-- delimiter -->
+	<!-- @standard@ -->
+	<!-- delimiter -->
+
+	<!-- delimiter del -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="home.php">ホーム</a></li>
+					<li class="active">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">マスター<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="syushi.php">部門</a></li>
+							<li><a href="syushi.php">社員</a></li>
+							<li><a href="syushi.php">会議日程</a></li>
+						</ul>
+					</li>
+					<li class="active">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">収支<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="syushi.php">入力</a></li>
+							<li><a href="syushi.php">表示</a></li>
+						</ul>
+					</li>
+					<li><a href="kintai.php">勤怠</a></li>
+					<li><a href="login.php">ログアウト</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- delimiter del -->
+	<!-- delimiter -->
+	<!-- @nav@ -->
+	<!-- delimiter -->
+
+	<div class="container">
+		<div class="dispo-pad15">
+			<label class="control-label dispo-title01">【オーダー入力】</label>
+			<span class="blank-add"></span>
+			<button type="button" class="btn btn-success" id="createbtn1" onclick="modalCall(this)">新規</button>
+			<span class="blank-add"></span>
+			<button type="button" class="btn btn-primary" id="searchbtn1">検索</button>
+			<div>　</div>
+			<div class="scroll_div">
+				<table _fixedhead="rows:1; cols:2" class="table table-bordered table-condensed table-striped">
+					<thead>
+						<tr>
+							<th style="min-width:60px;">No</th>
+							<th style="min-width:80px;">取引先</th>
+							<th style="min-width:180px;">勤務地</th>
+							<th style="min-width:250px;">タイトル</th>
+							<th style="min-width:60px;">受注日</th>
+							<th style="min-width:60px;">完了日</th>
+							<th style="min-width:60px;">担当</th>
+							<th style="min-width:60px;">種別</th>
+							<th style="min-width:100px;">エリア</th>
+							<th style="min-width:100px;">作成日</th>
+							<th style="min-width:80px;">作成時間</th>
+							<th style="min-width:80px;">作成者</th>
+							<th style="min-width:100px;">更新日</th>
+							<th style="min-width:80px;">更新時間</th>
+							<th style="min-width:80px;">更新者</th>
+						</tr>
+					</thead>
+					<tbody id="tablebody">
+						<tr>
+							<td>
+								<div>
+									<button style="width:40px;" type="button" name="bt" value="">15</button>
+								</div>
+							</td>
+							<td>
+								<div>株式会社なにわ花いちば</div>
+							</td>
+							<td>
+								<div>大阪府大阪市鶴見区茨田大宮2-7-70</div>
+							</td>
+							<td>
+								<div>簡単な伝票の出力、入力、チェック業務</div>
+							</td>
+
+							<td>
+								<div>2017/04/12</div>
+							</td>
+							<td>
+								<div>-</div>
+							</td>
+							<td>
+								<div>福島直樹</div>
+							</td>
+							<td>
+								<div>人材派遣</div>
+							</td>
+							<td>
+								<div>大阪</div>
+							</td>
+							<td>
+								<div>2017/04/12</div>
+							</td>
+							<td>
+								<div>10:20:32</div>
+							</td>
+							<td>
+								<div>藤井 良和</div>
+							</td>
+							<td>
+								<div>2017/04/12</div>
+							</td>
+							<td>
+								<div>10:20:32</div>
+							</td>
+							<td>
+								<div>藤井 良和</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+	</div>
+</body>
+
+</html>
