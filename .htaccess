@@ -1,0 +1,3 @@
+<Files ~ "\.(pdf|csv|xls|xlsx|log)$">
+deny from all
+</Files>
